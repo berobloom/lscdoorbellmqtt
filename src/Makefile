@@ -1,4 +1,4 @@
-export PACKAGE_NAME := $(shell grep module go.mod | awk '{print $$2}' | sed 's/\//_/g')
+export PACKAGE_NAME := lscdoorbellmqtt
 export GOOS := linux
 export GOARCH := arm
 export GOARM := 7
@@ -14,6 +14,9 @@ all: build
 build:
 	go build -o $(PACKAGE_NAME)
 	$(STRIP) $(PACKAGE_NAME)
+	mkdir -p output/$(PACKAGE_NAME)
+	mv $(PACKAGE_NAME) output/$(PACKAGE_NAME)/
+	cp dingdong.wav output/$(PACKAGE_NAME)/
 
 clean:
-	rm -f $(PACKAGE_NAME)
+	rm -rf $(PACKAGE_NAME)/
