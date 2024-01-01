@@ -14,6 +14,14 @@ The application uses the Paho MQTT client to connect to an MQTT broker and publi
 
 The doorbell's state is represented as a binary sensor in Home Assistant. The application publishes a discovery message to Home Assistant to create the binary sensor.
 
+## Prerequisites
+
+To upgrade the firmware of your doorbell, it is recommended to replace it with [OpenIPC](https://openipc.org) firmware. Detailed installation instructions can be found on the OpenIPC website.
+
+For a step-by-step installation guide, please visit: OpenIPC Installation Guide: https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev300.
+
+For additional information, refer to the OpenIPC Wiki at: https://github.com/OpenIPC/wiki/blob/master/en/device-lsc-smart-connect-video-doorbell-2021.md.
+
 ## How to Run
 
 1. Install Go on your machine if you haven't done so already.
