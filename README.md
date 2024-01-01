@@ -18,7 +18,7 @@ The doorbell's state is represented as a binary sensor in Home Assistant. The ap
 
 ## Prerequisites
 
-To upgrade the firmware of your doorbell, it is recommended to replace it with [OpenIPC](https://openipc.org) firmware. Detailed installation instructions can be found on the OpenIPC website.
+The camera firmware needs to run [OpenIPC](https://openipc.org) firmware. Detailed installation instructions can be found on the OpenIPC website.
 
 LSC regularly introduces new versions of their products with updated hardware. If your camera looks like the one pictured on the box and has a `hi3518ev300` SOC, you're good to go.
 
