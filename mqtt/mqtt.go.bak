@@ -1,0 +1,122 @@
+package mqtt
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"lscdoorbellmqtt/config"
+	"lscdoorbellmqtt/gpiohandler"
+	"time"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+)
+
+const (
+	deviceClass    = "door"
+	mqttClass      = "binary_sensor"
+	topic          = "homeassistant/" + mqttClass + "/lscdoorbell"
+	subscribeTopic = topic + "/#"
+	stateTopic     = topic + "/state"
+	configTopic    = topic + "/config"
+)
+
+var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
+	fmt.Printf("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
+}
+
+var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
+	fmt.Println("Connected")
+}
+
+var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
+	fmt.Printf("Connect lost: %v", err)
+}
+
+func discoverHA(client mqtt.Client) {
+	discoveryMessage := map[string]interface{}{
+		"name":           "LSC Smart Connect Video Doorbell",
+		"device_class":   deviceClass,
+		"state_topic":    stateTopic,
+		"payload_on":     "ON",
+		"payload_off":    "OFF",
+		"icon":           "mdi:doorbell-video",
+		"unique_id":      "lscdoorbellsensor02LSC034",
+		"value_template": "{{ value_json.state }}",
+		"qos":            0,
+		"availability": []map[string]interface{}{
+			{
+				"topic":                 "homeassistant/lscdoorbell/availability",
+				"payload_available":     "online",
+				"payload_not_available": "offline",
+			},
+		},
+		"device": map[string]interface{}{
+			"identifiers":  []string{"02LSC03"},
+			"manufacturer": "LSC",
+			"model":        "Video Doorbell",
+			"name":         "LSC Smart Connect Video Doorbell",
+		},
+	}
+
+	discoveryPayload, err := json.Marshal(discoveryMessage)
+	if err != nil {
+		log.Panic("Failed to encode discovery message:", err)
+	}
+
+	publishConfig(client, discoveryPayload)
+}
+
+func publishState(client mqtt.Client, state string) {
+	token := client.Publish(stateTopic, 0, true, state)
+	token.Wait()
+}
+
+func publishConfig(client mqtt.Client, discoveryPayload []byte) {
+	token := client.Publish(configTopic, 0, true, discoveryPayload)
+	token.Wait()
+}
+
+func Start() {
+	var broker = config.GetString("settings.mqtt_broker")
+	var port = config.GetInt64("settings.mqtt_port")
+	opts := mqtt.NewClientOptions()
+	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
+	opts.SetClientID(config.GetString("settings.mqtt_client_id"))
+	opts.SetUsername(config.GetString("settings.mqtt_username"))
+	opts.SetPassword(config.GetString("settings.mqtt_password"))
+	opts.SetDefaultPublishHandler(messagePubHandler)
+	opts.OnConnect = connectHandler
+	opts.OnConnectionLost = connectLostHandler
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		panic(token.Error())
+	}
+
+	subscribe(client)
+
+	discoverHA(client)
+
+	payload := `{"state": "OFF"}`
+	publishState(client, payload)
+
+	stateLoop(client)
+
+	client.Disconnect(250)
+}
+
+func stateLoop(client mqtt.Client) {
+	for {
+		gpiohandler.Listen()
+		for i := 1; i < 5; i++ {
+			payload := `{"state": "ON"}`
+			publishState(client, payload)
+			time.Sleep(1 * time.Second)
+		}
+	}
+}
+
+func subscribe(client mqtt.Client) {
+	token := client.Subscribe(subscribeTopic, 1, nil)
+	token.Wait()
+	fmt.Printf("Subscribed to topic: %s", subscribeTopic)
+}
