@@ -19,13 +19,27 @@ The doorbell's state is represented as a binary sensor in Home Assistant. The ap
 1. Install Go on your machine if you haven't done so already.
 2. Clone this repository.
 3. Navigate to the project directory.
-4. Create an environment variable: `TOOLCHAIN_BIN_DIR = "/path_to/firmware/output/host/bin"`
-    * *Note:* Retrieve the toolchain from: `https://github.com/OpenIPC/firmware.git`
+4. Create an environment variable: `TOOLCHAIN_BIN_DIR = "/path_to/firmware/output/host/bin"`.
+    * *Note:* Retrieve the toolchain from: `https://github.com/OpenIPC/firmware.git`.
 5. Run `make` to compile the application.
-6. Copy `lscdoorbellmqtt` to the sdcard of the doorbell.
-7. Run it.
-8. ???
-9. Profit
+6. Copy `output/lscdoorbellmqtt` directory to the sdcard of the doorbell.
+7. Copy service file: `init.d/S80lscdoorbellmqtt` to `/etc/init.d/` of the doorbell
+8. Start the script as a `post-up` option in `/etc/network/interfaces.d/wlan0`.
+    ```
+    post-up /etc/init.d/S80lscdoorbellmqtt start
+    ```
+9. Reboot the doorbell and test it out using the doorbell button.
+10. ???.
+11. Profit.
+
+## Screenshot
+
+![](images/lscdoorbellscreenshot.png)
+
+## Demo Video (Youtube)
+
+
+[![Youtube](images/youtubethumbnail.png)](https://www.youtube.com/watch?v=OjJcdlTrQ2Q)
 
 ## Configuration
 
