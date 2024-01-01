@@ -1,5 +1,11 @@
 # LSC Smart Connect Video Doorbell (2021) MQTT (WIP)
 
+## Work In Progress
+
+⚠️ WARNING ⚠️
+
+This project is a work in progress.
+
 ## Project description
 
 This repository contains a MQTT Client specifically written for the LSC Smart Connect Video Doorbell (2021) and written in Go.
@@ -38,8 +44,8 @@ The application's code is divided into three packages:
 
 ## Dependencies
 
-- [Paho MQTT client for Go](github.com/eclipse/paho.mqtt.golang)
-- [YAML config generator](github.com/spf13/viper)
+- [Paho MQTT client for Go](https://github.com/eclipse/paho.mqtt.golang)
+- [YAML config generator](https://github.com/spf13/viper)
 
 ## Contributing
 
