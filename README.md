@@ -1,5 +1,7 @@
 # LSC Smart Connect Video Doorbell (2021) MQTT (WIP)
 
+![](images/lscdoorbellbox.jpg)
+
 ## Work In Progress
 
 ⚠️ WARNING ⚠️
@@ -18,9 +20,11 @@ The doorbell's state is represented as a binary sensor in Home Assistant. The ap
 
 To upgrade the firmware of your doorbell, it is recommended to replace it with [OpenIPC](https://openipc.org) firmware. Detailed installation instructions can be found on the OpenIPC website.
 
+LSC regularly introduces new versions of their products with updated hardware. If your camera looks like the one pictured on the box and has a `hi3518ev300` SOC, you're good to go.
+
 For a step-by-step installation guide, please visit: OpenIPC Installation Guide: https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev300.
 
-For additional information, refer to the OpenIPC Wiki at: https://github.com/OpenIPC/wiki/blob/master/en/device-lsc-smart-connect-video-doorbell-2021.md.
+For additional information, refer to the following OpenIPC Wiki at: https://github.com/OpenIPC/wiki/blob/master/en/device-lsc-smart-connect-video-doorbell-2021.md.
 
 ## How to Run
 
