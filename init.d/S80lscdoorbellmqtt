@@ -2,7 +2,7 @@
 
 DAEMON="lscdoorbellmqtt"
 PIDFILE="/var/run/$DAEMON.pid"
-APP_PATH="/media/lscdoorbellmqtt/lscdoorbellmqtt"
+APP_PATH="/mnt/mmcblk0p1/lscdoorbellmqtt/lscdoorbellmqtt"
 
 # Add any additional arguments your application needs
 APP_ARGS=""
