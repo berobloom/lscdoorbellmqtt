@@ -22,7 +22,10 @@ The doorbell's state is represented as a binary sensor in Home Assistant. The ap
 4. Create an environment variable: `TOOLCHAIN_BIN_DIR = "/path_to/firmware/output/host/bin"`
     * *Note:* Retrieve the toolchain from: `https://github.com/OpenIPC/firmware.git`
 5. Run `make` to compile the application.
-6. Run `./lscdoorbellmqtt` to start the application.
+6. Copy `lscdoorbellmqtt` to the sdcard of the doorbell.
+7. Run it.
+8. ???
+9. Profit
 
 ## Configuration
 
