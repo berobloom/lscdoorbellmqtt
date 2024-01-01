@@ -75,6 +75,10 @@ The application's code is divided into three packages:
 
 [![Youtube](images/youtubethumbnail.png)](https://www.youtube.com/watch?v=OjJcdlTrQ2Q)
 
+## Todo:
+
+* Add camera stream from OpenIPC.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request.
