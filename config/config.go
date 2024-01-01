@@ -38,22 +38,6 @@ func GetString(setting string) string {
 	return foundSetting
 }
 
-func GetStringSlice(setting string) []string {
-	foundSetting := viper.GetStringSlice(setting)
-	if len(foundSetting) == 0 {
-		panic("Confighandler: Could not find item: " + setting)
-	}
-	return foundSetting
-}
-
-func GetFloat64(setting string) float64 {
-	foundSetting := viper.GetFloat64(setting)
-	if foundSetting == 0 {
-		panic("Confighandler: Could not find item: " + setting)
-	}
-	return foundSetting
-}
-
 func GetInt64(setting string) int64 {
 	foundSetting := viper.GetInt64(setting)
 	if foundSetting == 0 {
