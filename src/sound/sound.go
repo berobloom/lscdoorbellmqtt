@@ -2,9 +2,8 @@ package sound
 
 import (
 	"log"
-	"os"
+	"lscdoorbellmqtt/utils"
 	"os/exec"
-	"path/filepath"
 )
 
 func PlaySound() {
@@ -16,12 +15,7 @@ func PlaySound() {
 }
 
 func getWaveFile() string {
-	exePath, err := os.Executable()
-	if err != nil {
-		log.Fatal("Error:", err)
-	}
-
-	dirPath := filepath.Dir(exePath)
+	dirPath := utils.GetExecutableSourceDir()
 
 	return dirPath + "/dingdong.wav"
 }

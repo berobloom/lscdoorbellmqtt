@@ -2,14 +2,17 @@ package config
 
 import (
 	"fmt"
+	"lscdoorbellmqtt/utils"
 
 	"github.com/spf13/viper"
 )
 
 func Init() {
+	dirPath := utils.GetExecutableSourceDir()
+
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath(dirPath)
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			fmt.Println("Config file not found. Generating default config...")
