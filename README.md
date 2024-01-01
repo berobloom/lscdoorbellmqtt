@@ -32,15 +32,6 @@ The doorbell's state is represented as a binary sensor in Home Assistant. The ap
 10. ???.
 11. Profit.
 
-## Screenshot
-
-![](images/lscdoorbellscreenshot.png)
-
-## Demo Video (Youtube)
-
-
-[![Youtube](images/youtubethumbnail.png)](https://www.youtube.com/watch?v=OjJcdlTrQ2Q)
-
 ## Configuration
 
 The application's configuration is stored in a file named `config.yaml`. This file contains the following settings:
@@ -63,6 +54,14 @@ The application's code is divided into three packages:
 
 - [Paho MQTT client for Go](https://github.com/eclipse/paho.mqtt.golang)
 - [YAML config generator](https://github.com/spf13/viper)
+
+## Screenshot
+
+![](images/lscdoorbellscreenshot.png)
+
+## Demo Video (Youtube)
+
+[![Youtube](images/youtubethumbnail.png)](https://www.youtube.com/watch?v=OjJcdlTrQ2Q)
 
 ## Contributing
 
