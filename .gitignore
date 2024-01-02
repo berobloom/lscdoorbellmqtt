@@ -3,3 +3,4 @@ src/lscdoorbellmqtt
 src/output/lscdoorbellmqtt
 src/output/dingdong
 src/output/config.yaml
+deploy.sh
