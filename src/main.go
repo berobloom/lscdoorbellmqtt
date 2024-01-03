@@ -5,6 +5,7 @@ import (
 	"lscdoorbellmqtt/gpiohandler"
 	"lscdoorbellmqtt/logger"
 	"lscdoorbellmqtt/mqtt"
+	"lscdoorbellmqtt/sound"
 )
 
 func main() {
@@ -19,6 +20,9 @@ func main() {
 	default:
 		logger.Init(logger.INFO)
 	}
+
+	go sound.PlaySound("boot.wav")
+	go gpiohandler.BootBlink()
 
 	logger.Status.Println("Starting lscdoorbellmqtt...")
 

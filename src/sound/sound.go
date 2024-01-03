@@ -6,16 +6,16 @@ import (
 	"os/exec"
 )
 
-func PlaySound() {
-	cmd := exec.Command("/bin/sh", "/usr/sbin/playonspeaker.sh", "-f", getWaveFile())
+func PlaySound(sound string) {
+	cmd := exec.Command("/bin/sh", "/usr/sbin/playonspeaker.sh", "-f", getWaveFile(sound))
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func getWaveFile() string {
+func getWaveFile(sound string) string {
 	dirPath := utils.GetExecutableSourceDir()
 
-	return dirPath + "/dingdong.wav"
+	return dirPath + "/" + sound
 }

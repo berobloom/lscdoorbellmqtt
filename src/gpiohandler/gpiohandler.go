@@ -65,6 +65,19 @@ func Blink() {
 	SetLow(RedIndicator)
 }
 
+func BootBlink() {
+	SetHigh(BlueIndicator)
+	SetHigh(RedIndicator)
+	time.Sleep(time.Second)
+	SetLow(RedIndicator)
+	time.Sleep(time.Second)
+	SetHigh(BlueIndicator)
+	SetHigh(RedIndicator)
+	time.Sleep(time.Second)
+	SetLow(BlueIndicator)
+	SetLow(RedIndicator)
+}
+
 func writeValue(path, value string) {
 	err := os.WriteFile(path, []byte(value), fs.ModePerm)
 	if err != nil {
