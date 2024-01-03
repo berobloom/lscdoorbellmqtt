@@ -4,3 +4,4 @@ settings:
     mqtt_client_id: lscdoorbellmqtt
     mqtt_password: guest
     mqtt_username: guest
+    log_level: INFO|ERROR

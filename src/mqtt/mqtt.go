@@ -3,10 +3,11 @@ package mqtt
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"lscdoorbellmqtt/config"
 	"lscdoorbellmqtt/gpiohandler"
+	"lscdoorbellmqtt/logger"
 	"lscdoorbellmqtt/sound"
+	"os"
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -29,15 +30,15 @@ const (
 )
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
-	fmt.Printf("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
+	logger.Infof("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	fmt.Println("Connected")
+	logger.Status.Println("Connected to MQTT broker")
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	fmt.Printf("Connect lost: %v", err)
+	logger.Error.Println("Connect lost:", err)
 }
 
 func discoverHA(client mqtt.Client) {
@@ -66,7 +67,7 @@ func discoverHA(client mqtt.Client) {
 
 	discoveryPayload, err := json.Marshal(discoveryMessage)
 	if err != nil {
-		log.Panic("Failed to encode discovery message:", err)
+		logger.Fatal(fmt.Sprintf("Failed to encode discovery message: %v", err))
 	}
 
 	publishConfig(client, discoveryPayload)
@@ -100,7 +101,8 @@ func Start() {
 	opts.OnConnectionLost = connectLostHandler
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		panic(token.Error())
+		logger.Fatal(token.Error().Error())
+		os.Exit(1)
 	}
 
 	subscribe(client)
@@ -153,5 +155,5 @@ func updateAvailability(client mqtt.Client, updateTicker *int) {
 func subscribe(client mqtt.Client) {
 	token := client.Subscribe(subscribeTopic, 1, nil)
 	token.Wait()
-	fmt.Printf("Subscribed to topic: %s", subscribeTopic)
+	logger.Infof("Subscribed to topic: %s", subscribeTopic)
 }

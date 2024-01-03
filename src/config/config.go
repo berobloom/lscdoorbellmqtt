@@ -22,6 +22,7 @@ func Init() {
 			viper.SetDefault("settings.mqtt_client_id", "lscdoorbellmqtt")
 			viper.SetDefault("settings.mqtt_username", "guest")
 			viper.SetDefault("settings.mqtt_password", "guest")
+			viper.SetDefault("settings.log_level", "INFO")
 
 			err = viper.SafeWriteConfig()
 			if err != nil {

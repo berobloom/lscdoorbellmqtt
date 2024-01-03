@@ -2,6 +2,7 @@ package gpiohandler
 
 import (
 	"io/fs"
+	"lscdoorbellmqtt/logger"
 	"os"
 	"strconv"
 	"time"
@@ -40,12 +41,12 @@ func ExportGPIO(pin string) {
 func ReadGPIO(pin string) int {
 	value, err := os.ReadFile("/sys/class/gpio/gpio" + pin + "/value")
 	if err != nil {
-		panic(err)
+		logger.Fatal(err.Error())
 	}
 
 	result, err := strconv.Atoi(string(value[:len(value)-1]))
 	if err != nil {
-		panic(err)
+		logger.Fatal(err.Error())
 	}
 
 	return result
@@ -67,7 +68,7 @@ func Blink() {
 func writeValue(path, value string) {
 	err := os.WriteFile(path, []byte(value), fs.ModePerm)
 	if err != nil {
-		panic(err)
+		logger.Fatal(err.Error())
 	}
 }
 
