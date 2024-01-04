@@ -10,6 +10,7 @@ import (
 
 func main() {
 	config.Init()
+	gpiohandler.Init()
 
 	logLevel := config.GetString("settings.log_level")
 	switch logLevel {
@@ -26,6 +27,5 @@ func main() {
 
 	logger.Status.Println("Starting lscdoorbellmqtt...")
 
-	gpiohandler.Init()
 	mqtt.Start()
 }
