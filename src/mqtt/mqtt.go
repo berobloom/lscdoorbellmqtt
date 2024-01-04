@@ -134,7 +134,7 @@ func stateLoop(client mqtt.Client) {
 
 func handleBellState(client mqtt.Client, sendUpdateTimes int) {
 	go sound.PlaySound("dingdong.wav")
-	go gpiohandler.Blink()
+	go gpiohandler.BellBlink()
 
 	for i := 1; i < sendUpdateTimes; i++ {
 		publishState(client, onPayload)

@@ -52,7 +52,7 @@ func ReadGPIO(pin string) int {
 	return result
 }
 
-func Blink() {
+func BellBlink() {
 	for i := 0; i < Max; i++ {
 		SetHigh(BlueIndicator)
 		SetLow(RedIndicator)
