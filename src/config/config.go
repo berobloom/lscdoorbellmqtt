@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"lscdoorbellmqtt/logger"
 	"lscdoorbellmqtt/utils"
 
 	"github.com/spf13/viper"
@@ -26,10 +27,10 @@ func Init() {
 
 			err = viper.SafeWriteConfig()
 			if err != nil {
-				panic(err)
+				logger.Fatal(fmt.Sprintf("Failed to write default config: %v", err))
 			}
 		} else {
-			panic("Unknown error while retrieving config")
+			logger.Fatal(fmt.Sprintf("Failed to read config: %v", err))
 		}
 	}
 }
@@ -37,7 +38,7 @@ func Init() {
 func GetString(setting string) string {
 	foundSetting := viper.GetString(setting)
 	if foundSetting == "" {
-		panic("Confighandler: Could not find item: " + setting)
+		logger.Fatal("Confighandler: Could not find item: " + setting)
 	}
 	return foundSetting
 }
@@ -45,7 +46,7 @@ func GetString(setting string) string {
 func GetInt64(setting string) int64 {
 	foundSetting := viper.GetInt64(setting)
 	if foundSetting == 0 {
-		panic("Confighandler: Could not find item: " + setting)
+		logger.Fatal("Confighandler: Could not find item: " + setting)
 	}
 	return foundSetting
 }
