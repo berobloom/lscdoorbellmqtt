@@ -16,7 +16,7 @@ build:
 	$(STRIP) $(PACKAGE_NAME)
 	mkdir -p output/$(PACKAGE_NAME)
 	mv $(PACKAGE_NAME) output/$(PACKAGE_NAME)/
-	cp boot.wav dingdong.wav output/$(PACKAGE_NAME)/
+	cp sound/boot.wav sound/dingdong.wav output/$(PACKAGE_NAME)/
 
 clean:
 	rm -rf $(PACKAGE_NAME)/
