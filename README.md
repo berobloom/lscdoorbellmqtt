@@ -29,10 +29,10 @@ For additional information, refer to the following OpenIPC Wiki at: https://gith
     * *Note:* Retrieve the toolchain from: `https://github.com/OpenIPC/firmware.git`.
 5. Run `make` to compile the application.
 6. Copy `output/lscdoorbellmqtt` directory to the sdcard of the doorbell.
-7. Copy service file: `init.d/S80lscdoorbellmqtt` to `/etc/init.d/` of the doorbell
+7. Copy service file: `init.d/S96lscdoorbellmqtt` to `/etc/init.d/` of the doorbell.
 8. Start the script as a `post-up` option in `/etc/network/interfaces.d/wlan0`.
     ```
-    post-up /etc/init.d/S80lscdoorbellmqtt start
+    post-up /etc/init.d/S96lscdoorbellmqtt start
     ```
 9. Reboot the doorbell and test it out using the doorbell button.
 10. ???.
