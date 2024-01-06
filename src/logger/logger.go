@@ -3,6 +3,7 @@ package logger
 import (
 	"io"
 	"log"
+	"lscdoorbellmqtt/utils"
 	"os"
 )
 
@@ -21,7 +22,8 @@ var (
 )
 
 func Init(logLevel Level) {
-	logFile, err := os.OpenFile("lscdoorbellmqtt.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	dirPath := utils.GetExecutableSourceDir()
+	logFile, err := os.OpenFile(dirPath+"lscdoorbellmqtt.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("Failed to open log file:", err)
 	}
