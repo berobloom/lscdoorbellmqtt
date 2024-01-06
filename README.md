@@ -1,4 +1,4 @@
-# LSC Smart Connect Video Doorbell (2021) MQTT (WIP)
+# LSC Smart Connect Video Doorbell (2021) MQTT Client
 
 ![](images/lscdoorbellbox.jpg)
 
