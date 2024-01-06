@@ -2,12 +2,6 @@
 
 ![](images/lscdoorbellbox.jpg)
 
-## Work In Progress
-
-⚠️ WARNING ⚠️
-
-This project is a work in progress.
-
 ## Project description
 
 This repository contains a MQTT Client specifically written for the LSC Smart Connect Video Doorbell (2021) and written in Go.
