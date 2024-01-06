@@ -5,10 +5,12 @@ import (
 	"lscdoorbellmqtt/gpiohandler"
 	"lscdoorbellmqtt/logger"
 	"lscdoorbellmqtt/mqtt"
+	"lscdoorbellmqtt/openipc"
 	"lscdoorbellmqtt/sound"
 )
 
 func main() {
+	openipc.GetOSReleaseVariables()
 	config.Init()
 	gpiohandler.Init()
 

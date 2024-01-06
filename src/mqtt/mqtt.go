@@ -59,7 +59,7 @@ func discoverHA(client mqtt.Client) {
 			"identifiers":  []string{"lscdoorbell1"},
 			"manufacturer": manufacturer,
 			"model":        fullName,
-			"sw_version":   "1.0",
+			"sw_version":   "OpenIPC " + os.Getenv("OPENIPC_VERSION"),
 			"name":         fullName,
 		},
 		"unique_id": "doorbell",
