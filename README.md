@@ -47,6 +47,7 @@ The application's configuration is stored in a file named `config.yaml`. This fi
 - `mqtt_client_id`: The client ID to use when connecting to the MQTT broker.
 - `mqtt_username`: The username to use when connecting to the MQTT broker.
 - `mqtt_password`: The password to use when connecting to the MQTT broker.
+- `log_level`: Log level of the application. Choose either `INFO` or `ERROR`.
 
 ## Code Structure
 
