@@ -15,7 +15,7 @@ import (
 
 const (
 	manufacturer      = "OpenIPC"
-	fullName          = manufacturer + " Connect Video Doorbell"
+	fullName          = "LSC Smart Connect Video Doorbell"
 	deviceClass       = "sound"
 	mqttClass         = "binary_sensor"
 	topic             = "homeassistant/" + mqttClass + "/lscdoorbell/bell"
