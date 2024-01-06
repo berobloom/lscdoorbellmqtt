@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	manufacturer      = "LSC"
+	manufacturer      = "OpenIPC"
 	fullName          = manufacturer + " Connect Video Doorbell"
 	deviceClass       = "sound"
 	mqttClass         = "binary_sensor"
@@ -59,7 +59,7 @@ func discoverHA(client mqtt.Client) {
 			"identifiers":  []string{"lscdoorbell1"},
 			"manufacturer": manufacturer,
 			"model":        fullName,
-			"sw_version":   "OpenIPC " + os.Getenv("OPENIPC_VERSION"),
+			"sw_version":   os.Getenv("OPENIPC_VERSION"),
 			"name":         fullName,
 		},
 		"unique_id": "doorbell",
