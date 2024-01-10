@@ -56,6 +56,9 @@ The application's code is divided into three packages:
 - **main**: This package contains the application's entry point. It initializes the configuration and GPIO handler and starts the MQTT client.
 - **mqtt**: This package contains the MQTT client and related functions. It handles connecting to the MQTT broker, subscribing to topics, publishing messages, and discovering Home Assistant.
 - **gpiohandler**: This package handles the GPIO operations for the doorbell.
+- **config**: This package handles the configuration of the application.
+- **logger**: This package handles the logging of the application.
+- **openipc**: This package handles the file operations for the OpenIPC firmware.
 
 ## Dependencies
 
