@@ -41,6 +41,34 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 	logger.Error.Println("Connect lost:", err)
 }
 
+func Start() {
+	var broker = config.GetString("settings.mqtt_broker")
+	var port = config.GetInt64("settings.mqtt_port")
+	opts := mqtt.NewClientOptions()
+	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
+	opts.SetClientID(config.GetString("settings.mqtt_client_id"))
+	opts.SetUsername(config.GetString("settings.mqtt_username"))
+	opts.SetPassword(config.GetString("settings.mqtt_password"))
+	opts.SetDefaultPublishHandler(messagePubHandler)
+	opts.OnConnect = connectHandler
+	opts.OnConnectionLost = connectLostHandler
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		logger.Fatal(token.Error().Error())
+		os.Exit(1)
+	}
+
+	subscribe(client)
+
+	discoverHA(client)
+
+	publishState(client, offPayload)
+
+	stateLoop(client)
+
+	client.Disconnect(250)
+}
+
 func discoverHA(client mqtt.Client) {
 	discoveryMessage := map[string]interface{}{
 		"name":         "Doorbell",
@@ -86,34 +114,6 @@ func publishAvailability(client mqtt.Client, state string) {
 func publishConfig(client mqtt.Client, discoveryPayload []byte) {
 	token := client.Publish(configTopic, 0, true, discoveryPayload)
 	token.Wait()
-}
-
-func Start() {
-	var broker = config.GetString("settings.mqtt_broker")
-	var port = config.GetInt64("settings.mqtt_port")
-	opts := mqtt.NewClientOptions()
-	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
-	opts.SetClientID(config.GetString("settings.mqtt_client_id"))
-	opts.SetUsername(config.GetString("settings.mqtt_username"))
-	opts.SetPassword(config.GetString("settings.mqtt_password"))
-	opts.SetDefaultPublishHandler(messagePubHandler)
-	opts.OnConnect = connectHandler
-	opts.OnConnectionLost = connectLostHandler
-	client := mqtt.NewClient(opts)
-	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		logger.Fatal(token.Error().Error())
-		os.Exit(1)
-	}
-
-	subscribe(client)
-
-	discoverHA(client)
-
-	publishState(client, offPayload)
-
-	stateLoop(client)
-
-	client.Disconnect(250)
 }
 
 func stateLoop(client mqtt.Client) {

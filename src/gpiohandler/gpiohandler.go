@@ -16,6 +16,19 @@ const (
 	GPIOPath        = "/sys/class/gpio/gpio"
 )
 
+func Init() {
+	ExportGPIO(BlueIndicator)
+	ExportGPIO(RedIndicator)
+	ExportGPIO(DoorbellBtnGPIO)
+
+	SetOutput(BlueIndicator)
+	SetOutput(RedIndicator)
+	SetInput(DoorbellBtnGPIO)
+
+	SetLow(BlueIndicator)
+	SetLow(RedIndicator)
+}
+
 func SetHigh(pin string) {
 	writeValue("/sys/class/gpio/gpio"+pin+"/value", "1")
 }
@@ -78,6 +91,10 @@ func BootBlink() {
 	SetLow(RedIndicator)
 }
 
+func GetBellState() int {
+	return ReadGPIO(DoorbellBtnGPIO)
+}
+
 func writeValue(path, value string) {
 	err := os.WriteFile(path, []byte(value), fs.ModePerm)
 	if err != nil {
@@ -87,21 +104,4 @@ func writeValue(path, value string) {
 
 func writeDirection(pin string, direction string) {
 	writeValue("/sys/class/gpio/gpio"+pin+"/direction", direction)
-}
-
-func GetBellState() int {
-	return ReadGPIO(DoorbellBtnGPIO)
-}
-
-func Init() {
-	ExportGPIO(BlueIndicator)
-	ExportGPIO(RedIndicator)
-	ExportGPIO(DoorbellBtnGPIO)
-
-	SetOutput(BlueIndicator)
-	SetOutput(RedIndicator)
-	SetInput(DoorbellBtnGPIO)
-
-	SetLow(BlueIndicator)
-	SetLow(RedIndicator)
 }
