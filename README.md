@@ -58,7 +58,7 @@ The application's code is divided into three packages:
 - **gpiohandler**: This package handles the GPIO operations for the doorbell.
 - **config**: This package handles the configuration of the application.
 - **logger**: This package handles the logging of the application.
-- **openipc**: This package handles the file operations for the OpenIPC firmware.
+- **openipc**: This package handles OpenIPC specific operations.
 
 ## Dependencies
 
